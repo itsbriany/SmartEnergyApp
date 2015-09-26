@@ -1,20 +1,25 @@
 <div class="container-fluid" ng-controller="View1Ctrl">
-    <ul class="col-md-8">
-        <table class="table table-hover">
+    <div class="col-md-8">
+        <table class="table table-hover col-md-8">
             <thead>
                 <tr>
-                    <th>Age of Home</th>
-                    <th>Size of Home</th>
+                    <th>Water Consumption</th>
+                    <th>Electricity Consumption</th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr ng-repeat="data in dataset">
-                    <td>{{data.Age_Of_Home}}</td>
-                    <td>{{data.Size_Of_Home}}</td>
+                    <td>{{data.Water_Consumption}}</td>
+                    <td>{{data.Electricity_Consumption}}</td>
                 </tr>
-
             </tbody>
         </table>
-    </ul>
+    </div>
+
+    <canvas id="line" class="chart chart-line" chart-data="data"
+            chart-labels="labels" chart-legend="true" chart-series="series"
+            chart-click="onClick" >
+    </canvas>
+
 </div>

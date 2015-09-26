@@ -60,7 +60,7 @@ app.get('/SmartEnergyData', function(req, res) {
     SmartEnergyData.find(function(err, dataset) {
         console.log("Sending dataset!");
         res.send(dataset);
-    });
+    }).limit(10);
 });
 
 
