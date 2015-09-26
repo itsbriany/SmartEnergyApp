@@ -12,23 +12,24 @@ mongoose.connect('mongodb://localhost/SmartEnergy');
 // Define the schema
 var SmartEnergyDataSchema = mongoose.Schema(
     {
-        id: Number,
-        Customer_Number: Number,
+        id: String,
+        Customer_Number: String,
         WEL_Address: String,
         Postal_Code: String,
         Conventional_System: String, // This can potentially be an Object
         Solar_System: String,
-        Roof_Pitch: Number,
-        Azimuth: Number,
+        Roof_Pitch: String,
+        Azimuth: String,
         Installation_Type: String,
-        Age_Of_Home: Number,
-        Size_Of_Home: Number,
-        Water_Consumption: Number,
-        Electricity_Consumption: Number
+        Age_Of_Home: String,
+        Size_Of_Home: String,
+        Water_Consumption: String,
+        Electricity_Consumption: String
     }
 );
 
 var SmartEnergyData = mongoose.model('SmartEnergyData', SmartEnergyDataSchema);
+
 
 //var myContact = new Contact({name: 'another_contact'});
 //myContact.save(function(err, myContact) {
@@ -38,9 +39,12 @@ var SmartEnergyData = mongoose.model('SmartEnergyData', SmartEnergyDataSchema);
 
 app.use(express.static(__dirname + "/app"));
 
-//app.get('/SmartEnergyApp', function(req, res) {
-//
-//});
+app.get('/SmartEnergyData', function(req, res) {
+    console.log("Success!");
+    SmartEnergyData.find(function(err, dataset) {
+        console.log(dataset);
+    });
+});
 
 
 app.listen(port);

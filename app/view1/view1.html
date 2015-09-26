@@ -1,18 +1,19 @@
-<div class="container-fluid" ng-controller="AppCtrl1">
+<div class="container-fluid" ng-controller="View1Ctrl">
     <ul class="col-md-8">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>DataType2</th>
-                    <th>DataType3</th>
-                    <th>DataType4</th>
-                    <th>DataType5</th>
+                    <th>Age of Home</th>
+                    <th>Size of Home</th>
                 </tr>
             </thead>
 
             <tbody>
-            <tr><td>data1</td></tr>
-            <tr><td>data2</td></tr>
+                <tr ng-repeat="data in dataset">
+                    <td>{{data.Age_Of_Home}}</td>
+                    <td>{{data.Size_Of_Home}}</td>
+                </tr>
+
             </tbody>
         </table>
     </ul>
