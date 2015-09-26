@@ -1,5 +1,25 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<div id="consumption_panel" class="container-fluid" ng-controller="View1Ctrl">
+    <div class="col-md-12">
+        <table class="table table-hover text-center" >
+            <thead >
+            <tr>
+                <th class="text-center">Water Consumption</th>
+                <th class="text-center">Electricity Consumption</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="data in dataset">
+                <td>{{data.Water_Consumption}}</td>
+                <td>{{data.Electricity_Consumption}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <canvas id="line" class="chart chart-line" chart-data="data"
+                chart-labels="labels" chart-legend="true" chart-series="series"
+                chart-click="onClick" >
+        </canvas>
+    </div>
+</div>
