@@ -3,7 +3,7 @@ var express = require('express');
 //var mongoose = require('mongoose');
 //var body_paraser = require('body-parser');
 
-var port = 3000;
+var port = 8000;
 
 var app = express();
 //var db = mongojs('contactlist', ['contactlist']);
