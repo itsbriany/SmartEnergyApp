@@ -15,7 +15,7 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="house in houses">
+                <tr ng-repeat="house in houses" ng-click="selectHouse(house)">
                     <td>{{house.WEL_Address}}</td>
                     <td>{{house.Postal_Code}}</td>
                 </tr>

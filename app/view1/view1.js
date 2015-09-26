@@ -9,7 +9,7 @@ angular.module('myApp.view1', ['ngRoute'])
         });
     }])
 
-    .controller('View1Ctrl', ['$scope', '$http', function($scope, $http) {
+    .controller('View1Ctrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 
         $http.get("/SmartEnergyData").success(function(response) {
             console.log("Response: " + response);
@@ -22,6 +22,10 @@ angular.module('myApp.view1', ['ngRoute'])
                 console.log("From server: " + response);
                 $scope.houses = response;
             });
-        }
+        };
+
+        $scope.selectHouse = function(house) {
+            $rootScope.testvar = house.WEL_Address + ' ' + house.Postal_Code;
+        };
 
     }]);
