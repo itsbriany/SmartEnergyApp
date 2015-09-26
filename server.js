@@ -56,12 +56,12 @@ app.use(express.static(__dirname + "/app"));
 
 app.get('/SmartEnergyData', function(req, res) {
     console.log("Success!");
-    console.log(req.params);
     SmartEnergyData.find(function(err, dataset) {
         console.log("Sending dataset!");
         res.send(dataset);
     }).limit(10);
 });
+
 
 
 app.listen(port);

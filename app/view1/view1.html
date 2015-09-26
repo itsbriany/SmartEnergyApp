@@ -1,0 +1,24 @@
+<div id="consumption_panel" class="container-fluid" ng-controller="View1Ctrl">
+    <div class="col-md-12">
+
+        <form class="form-horizontal">
+            <input type="search" class="form-control" placeholder="Search by WEL Address">
+        </form>
+
+        <table id="browse_houses" class="table table-hover text-center" >
+            <thead>
+            <tr>
+                <th class="text-center">WEL Address</th>
+                <th class="text-center">Postal Code</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="house in houses">
+                    <td>{{house.WEL_Address}}</td>
+                    <td>{{house.Postal_Code}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

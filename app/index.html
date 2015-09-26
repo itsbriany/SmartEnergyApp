@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>My AngularJS App</title>
+    <title>Smart Energy App</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
@@ -17,25 +17,32 @@
 <body>
 
 <div class="container-fluid">
+
     <nav class="navbar navbar-default">
-        <!--
+        <h1 class="text-center" style="color: #00b3ee">Smart Energy App</h1>
+    </nav>
+
+    <div class="col-md-3">
+
+        
+        <nav id="left_navigation" class="navbar-text navbar-left">
             <table class="table table-bordered table-hover">
                 <tbody>
-                    <tr><td><a href="#/view1">view1</a></td></tr>
-                    <tr><td><a href="#/view2">view2</a></td></tr>
+                    <tr><td><h3 class="text-center"><a href="#/view1">Browse Houses</a></h3></td></tr>
+                    <tr><td><h3 class="text-center"><a href="#/view2">Display Energy Consumption</a></h3></td></tr>
                 </tbody>
             </table>
-        -->
-        <div class="col-md-6"><h1 class="text-center"><a href="#/view1">Browse Houses</a></h1></div>
-        <div class="col-md-6"><h1 class="text-center"><a href="#/view2">Display Energy Consumption</a></h1></div>
-    </nav>
+        </nav>
+
+    </div>
 
     <!--[if lt IE 7]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div ng-view></div>
-
+    <div class="col-md-8">
+        <div ng-view></div>
+    </div>
 
     <!-- In production use:
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>

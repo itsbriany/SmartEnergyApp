@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute', 'chart.js'])
+angular.module('myApp.view1', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/view1', {
@@ -11,6 +11,9 @@ angular.module('myApp.view1', ['ngRoute', 'chart.js'])
 
     .controller('View1Ctrl', ['$scope', '$http', function($scope, $http) {
 
-
+        $http.get("/SmartEnergyData").success(function(response) {
+            console.log("Response: " + response);
+            $scope.houses = response;
+        });
 
     }]);

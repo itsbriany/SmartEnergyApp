@@ -10,7 +10,7 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
 }])
 
 .controller('View2Ctrl', ['$scope', '$http', function($scope, $http) {
-        
+
         $http.get("/SmartEnergyData").success(function(response) {
             $scope.dataset = response;
         });
