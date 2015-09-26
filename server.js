@@ -1,22 +1,35 @@
 var express = require('express');
-//var mongojs = require('mongojs');
-//var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 //var body_paraser = require('body-parser');
 
 var port = 8000;
 
 var app = express();
-//var db = mongojs('contactlist', ['contactlist']);
 
 // Connect to MongoDB
-//mongoose.connect('mongodb://localhost/contactlist');
+mongoose.connect('mongodb://localhost/SmartEnergy');
 
 // Define the schema
-//var ContactSchema = mongoose.Schema({name: String, email: String, number: Number});
-//var ContactSchema = mongoose.Schema({name: String});
-//
-//
-//var Contact = mongoose.model('contact', ContactSchema);
+var SmartEnergyDataSchema = mongoose.Schema(
+    {
+        id: Number,
+        Customer_Number: Number,
+        WEL_Address: String,
+        Postal_Code: String,
+        Conventional_System: String, // This can potentially be an Object
+        Solar_System: String,
+        Roof_Pitch: Number,
+        Azimuth: Number,
+        Installation_Type: String,
+        Age_Of_Home: Number,
+        Size_Of_Home: Number,
+        Water_Consumption: Number,
+        Electricity_Consumption: Number
+    }
+);
+
+var SmartEnergyData = mongoose.model('SmartEnergyData', SmartEnergyDataSchema);
+
 //var myContact = new Contact({name: 'another_contact'});
 //myContact.save(function(err, myContact) {
 //    if (err) return console.log(err);
