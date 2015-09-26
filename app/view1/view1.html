@@ -1,10 +1,10 @@
-<div class="container-fluid" ng-controller="View1Ctrl">
-    <div class="col-md-8">
-        <table class="table table-hover col-md-8">
-            <thead>
+<div id="consumption_panel" class="container-fluid" ng-controller="View1Ctrl">
+    <div class="col-md-12">
+        <table class="table table-hover text-center" >
+            <thead >
                 <tr>
-                    <th>Water Consumption</th>
-                    <th>Electricity Consumption</th>
+                    <th class="text-center">Water Consumption</th>
+                    <th class="text-center">Electricity Consumption</th>
                 </tr>
             </thead>
 
@@ -15,11 +15,11 @@
                 </tr>
             </tbody>
         </table>
+
+
+        <canvas id="line" class="chart chart-line" chart-data="data"
+                chart-labels="labels" chart-legend="true" chart-series="series"
+                chart-click="onClick" >
+        </canvas>
     </div>
-
-    <canvas id="line" class="chart chart-line" chart-data="data"
-            chart-labels="labels" chart-legend="true" chart-series="series"
-            chart-click="onClick" >
-    </canvas>
-
 </div>
