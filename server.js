@@ -20,7 +20,7 @@ var SmartEnergyDataSchema = mongoose.Schema(
         Solar_System: String,
         Roof_Pitch: String,
         Azimuth: String,
-        Installation_Type: String,
+        Installation_type: String,
         Age_Of_Home: String,
         Size_Of_Home: String,
         Water_Consumption: String,
@@ -31,8 +31,23 @@ var SmartEnergyDataSchema = mongoose.Schema(
 var SmartEnergyData = mongoose.model('SmartEnergyData', SmartEnergyDataSchema);
 
 
-//var myContact = new Contact({name: 'another_contact'});
-//myContact.save(function(err, myContact) {
+//var myData = new SmartEnergyData({
+//    id: 9000,
+//    Customer_Number: "My Number",
+//    WEL_Address: "My WEL_Address",
+//    Postal_Code: "My Postal Code",
+//    Conventional_System: "My Conventional System",
+//        Solar_System: "Solar System",
+//    Roof_Pitch: "My Roof Pitch",
+//    Azimuth: "My Azimuth",
+//    Installation_type: "My Installation Type",
+//    Age_Of_Home: "My Age of Home",
+//    Size_Of_Home: "My Size of Home",
+//    Water_Consumption: "My Water Consumption",
+//    Electricity_Consumption: "My Electricity Consumption"
+//});
+//
+//myData.save(function(err, myData) {
 //    if (err) return console.log(err);
 //});
 
@@ -41,8 +56,10 @@ app.use(express.static(__dirname + "/app"));
 
 app.get('/SmartEnergyData', function(req, res) {
     console.log("Success!");
+    console.log(req.params);
     SmartEnergyData.find(function(err, dataset) {
-        console.log(dataset);
+        console.log("Sending dataset!");
+        res.send(dataset);
     });
 });
 

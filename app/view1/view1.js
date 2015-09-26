@@ -15,7 +15,7 @@ angular.module('myApp.view1', ['ngRoute'])
         $http.get("/SmartEnergyData").success(function(response) {
             console.log("I got the data I requested");
             $scope.dataset = response;
-            console.log($scope.dataset);
+            //console.log($scope.dataset);
             //$scope.dataset = "";
         });
 
