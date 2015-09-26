@@ -14,6 +14,9 @@ app.use(body_parser.urlencoded({     // to support URL-encoded bodies
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/SmartEnergy');
 
+ObjectId  = mongoose.Types.ObjectId;
+
+
 // Define the schema
 var SmartEnergyDataSchema = mongoose.Schema(
     {
@@ -35,28 +38,6 @@ var SmartEnergyDataSchema = mongoose.Schema(
 
 var SmartEnergyData = mongoose.model('SmartEnergyData', SmartEnergyDataSchema);
 
-
-//var myData = new SmartEnergyData({
-//    id: 9000,
-//    Customer_Number: "My Number",
-//    WEL_Address: "My WEL_Address",
-//    Postal_Code: "My Postal Code",
-//    Conventional_System: "My Conventional System",
-//        Solar_System: "Solar System",
-//    Roof_Pitch: "My Roof Pitch",
-//    Azimuth: "My Azimuth",
-//    Installation_type: "My Installation Type",
-//    Age_Of_Home: "My Age of Home",
-//    Size_Of_Home: "My Size of Home",
-//    Water_Consumption: "My Water Consumption",
-//    Electricity_Consumption: "My Electricity Consumption"
-//});
-//
-//myData.save(function(err, myData) {
-//    if (err) return console.log(err);
-//});
-
-
 app.use(express.static(__dirname + "/app"));
 
 /*
@@ -70,8 +51,9 @@ app.get('/SmartEnergyData', function(req, res) {
     }).limit(10);
 });
 
+
 /*
-    Queries for houses in db
+    Queries for dataset in db
  */
 app.post('/Houses/', function(req, res) {
     var wel_address_data = req.body.WEL_Address;
@@ -79,11 +61,45 @@ app.post('/Houses/', function(req, res) {
     console.log(wel_address_data);
 
     SmartEnergyData.find({WEL_Address: {$regex: re}}, function(err, results) {
-        console.log("Sending houses!");
+        console.log("Sending dataset!");
         res.send(results);
     });
 });
 
+app.put('/MonitorHouse/:id', function(req, res) {
+    var id = req.params.id;
+    SmartEnergyData.findOne({_id: id}, function(err, results) {
+        console.log("Results are: " + results);
+        normalize_data(results, id);
+    })
+
+});
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+/*
+    Updates the DB with normalized data
+
+    Params: old_data: the document from the previous search query
+            id: the document's object identifier
+ */
+function normalize_data(old_data, id) {
+    console.log("Normalizing data");
+    var new_water_consumption = getRandomInt(-10, 10) + parseInt(old_data.Water_Consumption);
+    var new_electronic_consumption = getRandomInt(-679, 679) + parseInt(old_data.Electricity_Consumption);
+    var replace_data = {Water_Consumption: new_water_consumption.toString(), Electricity_Consumption: new_electronic_consumption.toString()};
+    SmartEnergyData.update({_id: id}, replace_data, function(err, doc) {
+        console.log("The updated document is: " + doc);
+    })
+}
+
+
+setInterval(function() {
+
+}, 3000);
 
 app.listen(port);
 console.log('Listening on port ' + port);

@@ -9,7 +9,22 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
   });
 }])
 
-.controller('View2Ctrl', ['$scope', '$http', function($scope, $http) {
+.controller('View2Ctrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+
+
+
+        var loadLineGraph = function() {
+            try {
+                // pass this in a query and send to server
+                console.log($rootScope.g_home_address);
+                var home_to_monitor = $rootScope.g_home_address._id;
+                $http.put("/MonitorHouse/" + home_to_monitor).success(function() {
+                    console.log("Done!");
+                });
+            } catch(err) {
+                console.log("No house selected");
+            }
+        };
 
         $http.get("/SmartEnergyData").success(function(response) {
             $scope.dataset = response;
@@ -32,5 +47,7 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
             };
 
         };
+
+        loadLineGraph();
 
 }]);

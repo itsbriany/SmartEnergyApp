@@ -13,19 +13,24 @@ angular.module('myApp.view1', ['ngRoute'])
 
         $http.get("/SmartEnergyData").success(function(response) {
             console.log("Response: " + response);
-            $scope.houses = response;
+            $scope.dataset = response;
         });
 
         $scope.searchHouses = function(wel_address) {
             var wel_address_data = {WEL_Address: wel_address};
             $http.post("/Houses", wel_address_data).success(function(response) {
                 console.log("From server: " + response);
-                $scope.houses = response;
+                $scope.dataset = response;
             });
         };
 
-        $scope.selectHouse = function(house) {
-            $rootScope.testvar = house.WEL_Address + ' ' + house.Postal_Code;
+        $scope.selectHouse = function(dataset) {
+            //$rootScope.g_home_address = house.WEL_Address + ' ' + house.Postal_Code;
+            $rootScope.g_home_address = {
+                _id: dataset._id,
+                WEL_Address: dataset.WEL_Address,
+                Postal_Code: dataset.Postal_Code
+            };
         };
 
     }]);
