@@ -1,10 +1,15 @@
 var express = require('express');
 var mongoose = require('mongoose');
-//var body_paraser = require('body-parser');
+var body_parser = require('body-parser');
 
 var port = 8000;
 
 var app = express();
+
+app.use(body_parser.json());
+app.use(body_parser.urlencoded({     // to support URL-encoded bodies
+    extended: true
+}));
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/SmartEnergy');
@@ -54,6 +59,9 @@ var SmartEnergyData = mongoose.model('SmartEnergyData', SmartEnergyDataSchema);
 
 app.use(express.static(__dirname + "/app"));
 
+/*
+    Returns all data from the db
+ */
 app.get('/SmartEnergyData', function(req, res) {
     console.log("Success!");
     SmartEnergyData.find(function(err, dataset) {
@@ -62,6 +70,19 @@ app.get('/SmartEnergyData', function(req, res) {
     }).limit(10);
 });
 
+/*
+    Queries for houses in db
+ */
+app.post('/Houses/', function(req, res) {
+    var wel_address_data = req.body.WEL_Address;
+    var re = new RegExp(wel_address_data, 'i');
+    console.log(wel_address_data);
+
+    SmartEnergyData.find({WEL_Address: {$regex: re}}, function(err, results) {
+        console.log("Sending houses!");
+        res.send(results);
+    });
+});
 
 
 app.listen(port);

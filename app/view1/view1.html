@@ -2,7 +2,8 @@
     <div class="col-md-12">
 
         <form class="form-horizontal">
-            <input type="search" class="form-control" placeholder="Search by WEL Address">
+            <input type="search" class="form-control"
+                   placeholder="Search by WEL Address" ng-model="wel_address" ng-change="searchHouses(wel_address)">
         </form>
 
         <table id="browse_houses" class="table table-hover text-center" >

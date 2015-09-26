@@ -16,4 +16,12 @@ angular.module('myApp.view1', ['ngRoute'])
             $scope.houses = response;
         });
 
+        $scope.searchHouses = function(wel_address) {
+            var wel_address_data = {WEL_Address: wel_address};
+            $http.post("/Houses", wel_address_data).success(function(response) {
+                console.log("From server: " + response);
+                $scope.houses = response;
+            });
+        }
+
     }]);
