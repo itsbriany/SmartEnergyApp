@@ -43,6 +43,28 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
          Helper function that updates the indexed row on the table
          */
         var updateRow = function(identifier, month, cost, electricity) {
+
+            // TODO Jquery does not like to fetch elements that are dynamically generated
+            //if (month_counter >= row_limit) {
+            //    for (var i = 0; i < row_limit; i++) {
+            //        if (i + 1 == row_limit) {
+            //            break;
+            //        }
+            //        console.log('Identifier is: ' + identifier);
+            //        var next_data = $('#real_time_energy_consumption' + identifier + 1).attr('id');
+            //        console.log('Next data: ' + next_data);
+            //        $('#real_time_energy_consumption' + identifier).html(next_data);
+            //    }
+            //
+            //    $('#real_time_energy_consumption' + row_limit - 1).html(
+            //        "<td>" + month + ' ' + current_year + '</td>' +
+            //        '<td>' + cost + '</td>' +
+            //        '<td>' + electricity + '</td>' +
+            //        "</tr>"
+            //    );
+            //    return;
+            //}
+
             $('#real_time_energy_consumption' + identifier).html(
                 "<td>" + month + ' ' + current_year + '</td>' +
                 '<td>' + cost + '</td>' +
@@ -122,8 +144,6 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
 
             if (month_counter > columns) {
 
-                console.log('Array values before: ' + $scope.data[0]);
-
                 // Shift left
                 for (var i = 0; i < columns; i++) {
                     var temp_data = $scope.data[0][i+1];
@@ -134,8 +154,6 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
 
                 $scope.data[0][columns-1] = electricity_cost;
                 $scope.labels[columns-1] = current_month + ' ' + current_year;
-                console.log('Array values after: ' + $scope.data[0]);
-
                 return;
             }
 
@@ -150,7 +168,6 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
          $scope.updateLineGraph = function() {
             try {
                 // pass this in a query and send to server
-                console.log($rootScope.g_home_address);
                 var home_to_monitor = $rootScope.g_home_address._id;
                 $http.put("/MonitorHouse/" + home_to_monitor).success(function(response) {
                     updateTable(month_counter, response.Electricity_Consumption);
@@ -203,7 +220,7 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
                 if (current_month == 'December') {
                     current_year++;
                 }
-            }, 1000);
+            }, 10000);
         }
 
         /*
