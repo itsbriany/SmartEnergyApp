@@ -70,15 +70,16 @@ app.put('/MonitorHouse/:id', function(req, res) {
     var id = req.params.id;
     SmartEnergyData.findOne({_id: id}, function(err, results) {
         console.log("Results are: " + results);
+        if(results.Water_Consumption == null || results.Electricity_Consumption == null)
+            De_normalize_data(results, id);
+        else
         normalize_data(results, id);
     })
-
 });
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
 
 /*
     Updates the DB with normalized data
@@ -86,10 +87,25 @@ function getRandomInt(min, max) {
     Params: old_data: the document from the previous search query
             id: the document's object identifier
  */
+
 function normalize_data(old_data, id) {
     console.log("Normalizing data");
     var new_water_consumption = getRandomInt(-10, 10) + parseInt(old_data.Water_Consumption);
     var new_electronic_consumption = getRandomInt(-679, 679) + parseInt(old_data.Electricity_Consumption);
+    var replace_data = {Water_Consumption: new_water_consumption.toString(), Electricity_Consumption: new_electronic_consumption.toString()};
+    SmartEnergyData.update({_id: id}, replace_data, function(err, doc) {
+        console.log("The updated document is: " + doc);
+    })
+}
+
+/*
+    Dealing with invalid values
+ */
+
+function De_normalize_data(old_data, id) {
+    console.log("De_Normalizing data");
+    var new_water_consumption = getRandomInt(100, 200);
+    var new_electronic_consumption = getRandomInt(5000, 22000);
     var replace_data = {Water_Consumption: new_water_consumption.toString(), Electricity_Consumption: new_electronic_consumption.toString()};
     SmartEnergyData.update({_id: id}, replace_data, function(err, doc) {
         console.log("The updated document is: " + doc);

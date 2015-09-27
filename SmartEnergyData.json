@@ -1,20 +1,5 @@
 [
   {
-    "id":"id",
-    "Customer_Number":"Customer_Number",
-    "WEL_Address":"WEL_Address",
-    "Postal_Code":"Postal_Code",
-    "Conventional_System":"Conventional_System",
-    "Solar_System":"Solar_System",
-    "Roof_Pitch":"Roof_Pitch",
-    "Azimuth":"Azimuth",
-    "Installation_type":"Installation_type",
-    "Age_Of_Home":"Age_Of_Home",
-    "Size_Of_Home":"Size_Of_Home",
-    "Water_Consumption":"Water_Consumption",
-    "Electricity_Consumption":"Electricity_Consumption"
-  },
-  {
     "id":"1",
     "Customer_Number":"430028",
     "WEL_Address":"WEL0806",
