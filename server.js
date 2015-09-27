@@ -60,10 +60,10 @@ app.post('/Houses/', function(req, res) {
     var re = new RegExp(wel_address_data, 'i');
     console.log(wel_address_data);
 
-    SmartEnergyData.find({WEL_Address: {$regex: re}}, function(err, results) {
+    SmartEnergyData.find({ $or:[ {'WEL_Address':{$regex: re}}, {'Postal_Code':{$regex: re}} ]}, function(err, results) {
         console.log("Sending dataset!");
         res.send(results);
-    });
+    }).limit(10);
 });
 
 app.put('/MonitorHouse/:id', function(req, res) {
