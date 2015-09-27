@@ -12,15 +12,16 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
 .controller('View2Ctrl', ['$scope', '$http', '$rootScope', '$timeout', function($scope, $http, $rootScope, $timeout) {
 
 
-
-
         // Counts the number of months passed since monitoring the one house
         var month_counter = 0;
+
+        // The limit of the number of rows allowed in the table
+        var row_limit = 6;
 
         /*
          Assures that the table does not go beyond 10 columns
          */
-        var monitor_table = function(row_limit) {
+        var monitor_table = function() {
             //var identifier = -1;
             //if (month_counter > row_limit) {
             //    identifier = (month_counter % row_limit) - 1;
@@ -76,7 +77,7 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
                 var home_to_monitor = $rootScope.g_home_address._id;
                 $http.put("/MonitorHouse/" + home_to_monitor).success(function(response) {
                     console.log("Updating chart!");
-                    $scope.updateChart(0);
+                    $scope.updateChart(month_counter);
                     updateTable(month_counter, response.Water_Consumption, response.Electricity_Consumption);
                 });
             } catch(err) {
@@ -86,10 +87,19 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
 
 
         $scope.updateChart = function(index) {
-            $scope.labels = [index, "February", "March", "April", "May", "June", "July"];
+            console.log('labels: ' + $scope.labels);
+
+            $scope.labels = [month_counter,
+                             month_counter + 1,
+                             month_counter + 2,
+                             month_counter + 3,
+                             month_counter + 4,
+                             month_counter + 5,
+                             month_counter + 6
+                            ];
             $scope.series = ['Water Consumption', 'Electricity Consumption'];
             $scope.data = [
-                [65, 59, 80, 81, 56, 55, 40], // TODO This needs to be simulated!!
+                [65, 59, 80, 81, 56, 55, 40],
                 [28, 48, 40, 19, 86, 27, 90]
             ];
 
@@ -100,6 +110,10 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
                     [11, 48, 11, 19, 11, 27, 90]
                 ];
             };
+
+            $scope.onLoad = function() {
+                console.log('Armed and ready!');
+            }
 
         };
 
