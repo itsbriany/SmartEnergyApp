@@ -3,18 +3,20 @@
         <table class="table table-hover text-center" >
             <thead>
                 <tr>
-                    <th class="text-center">Day</th>
-                    <th class="text-center">Water Consumption</th>
-                    <th class="text-center">Electricity Consumption</th>
+                    <th class="text-center">Months Passed</th>
+                    <th class="text-center">Water Consumption (Liters)</th>
+                    <th class="text-center">Electricity Consumption (Kw)</th>
                 </tr>
             </thead>
 
-            <tbody>
-                <tr ng-repeat="data in dataset" ng-click="updateChart($index)">
-                    <td>{{$index + 1}}</td>
-                    <td>{{data.Water_Consumption}}</td>
-                    <td>{{data.Electricity_Consumption}}</td>
-                </tr>
+            <tbody id="real_time_energy_consumption">
+                <!--<tr id="real_time_energy_consumption0">-->
+                <!--<tr ng-repeat="data in dataset" ng-click="updateChart($index)">-->
+                    <!--&lt;!&ndash;<td>{{$index + 1}}</td>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<td>{{data.Water_Consumption}}</td>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<td>{{data.Electricity_Consumption}}</td>&ndash;&gt;-->
+                <!--</tr>-->
+                <!--</tr>-->
             </tbody>
 
         </table>

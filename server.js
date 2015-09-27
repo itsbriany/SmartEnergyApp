@@ -74,6 +74,7 @@ app.put('/MonitorHouse/:id', function(req, res) {
             De_normalize_data(results, id);
         else
         normalize_data(results, id);
+        res.send(results);
     })
 });
 
@@ -95,7 +96,7 @@ function normalize_data(old_data, id) {
     var replace_data = {Water_Consumption: new_water_consumption.toString(), Electricity_Consumption: new_electronic_consumption.toString()};
     SmartEnergyData.update({_id: id}, replace_data, function(err, doc) {
         console.log("The updated document is: " + doc);
-    })
+    });
 }
 
 /*
@@ -113,9 +114,7 @@ function De_normalize_data(old_data, id) {
 }
 
 
-setInterval(function() {
 
-}, 3000);
 
 app.listen(port);
 console.log('Listening on port ' + port);
