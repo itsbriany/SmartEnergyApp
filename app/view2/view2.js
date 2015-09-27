@@ -67,20 +67,8 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
             var identifier = month_counter % row_limit;
             var electricity_cost = calculate_electricity_cost(electricity);
 
-            if (month_counter < row_limit) {
-                $('#real_time_energy_consumption').append(
-                    "<tr id='real_time_energy_consumption" + month_counter + "'>" +
-                    "<td>" + month + '</td>' +
-                    '<td>' + electricity_cost + '</td>' +
-                    '<td>' + electricity + '</td>' +
-                    "</tr>"
-                );
-            } else {
-
-                // Wrap around the table
-                updateRow(identifier, month, electricity_cost, electricity);
-            }
-
+            // Wrap around the table
+            updateRow(identifier, month, electricity_cost, electricity);
 
             // Ensure that the table never grows past 10 rows
             monitor_table(10);
@@ -172,11 +160,31 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
             Simulates real time data flow updating every 3 seconds
          */
         function simulate() {
+
+            // Load the table
+            loadTable();
+
+            // Run the simulator
             setInterval(function() {
                 $scope.updateLineGraph();
             }, 1000);
-        };
+        }
 
+        /*
+            Loads the skeleton of the table
+         */
+        function loadTable() {
+            for (var i = 0; i < row_limit; i++) {
+                $('#real_time_energy_consumption').append(
+                    "<tr id='real_time_energy_consumption" + i + "'>" +
+                    '<td>Loading data...</td>' +
+                    '<td>Loading data...</td>' +
+                    '<td>Loading data...</td>' +
+                    "</tr>"
+                );
+            }
+            monitor_table();
+        }
 
         simulate();
 

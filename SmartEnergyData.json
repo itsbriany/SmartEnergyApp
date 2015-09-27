@@ -26,7 +26,7 @@
     "Installation_type":"Wall mount",
     "Age_Of_Home":"31",
     "Size_Of_Home":"1680",
-    "Water_Consumption":null,
+    "Water_Consumption":"120",
     "Electricity_Consumption":"21448"
   },
   {
@@ -41,7 +41,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"18",
     "Size_Of_Home":"2500",
-    "Water_Consumption":null,
+    "Water_Consumption":"138",
     "Electricity_Consumption":"16320"
   },
   {
@@ -56,7 +56,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"30",
     "Size_Of_Home":"2400",
-    "Water_Consumption":null,
+    "Water_Consumption":"127",
     "Electricity_Consumption":"18872"
   },
   {
@@ -86,7 +86,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"5",
     "Size_Of_Home":"2600",
-    "Water_Consumption":null,
+    "Water_Consumption": "150",
     "Electricity_Consumption":"34154"
   },
   {
@@ -131,7 +131,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"4.5",
     "Size_Of_Home":"2000",
-    "Water_Consumption":null,
+    "Water_Consumption":"138",
     "Electricity_Consumption":"7619"
   },
   {
@@ -176,7 +176,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"4",
     "Size_Of_Home":"3500",
-    "Water_Consumption":null,
+    "Water_Consumption":"178",
     "Electricity_Consumption":"10509"
   },
   {
@@ -191,7 +191,7 @@
     "Installation_type":null,
     "Age_Of_Home":"25",
     "Size_Of_Home":"2800",
-    "Water_Consumption":null,
+    "Water_Consumption":"129",
     "Electricity_Consumption":"15235"
   },
   {
@@ -221,7 +221,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"17",
     "Size_Of_Home":"3600",
-    "Water_Consumption":null,
+    "Water_Consumption":"135",
     "Electricity_Consumption":"8036"
   },
   {
@@ -251,7 +251,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"9",
     "Size_Of_Home":"2500",
-    "Water_Consumption":null,
+    "Water_Consumption":"127",
     "Electricity_Consumption":"14258"
   },
   {
@@ -281,7 +281,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"8",
     "Size_Of_Home":"3600",
-    "Water_Consumption":null,
+    "Water_Consumption":"134",
     "Electricity_Consumption":"19272"
   },
   {
@@ -311,8 +311,8 @@
     "Installation_type":"Tilted up",
     "Age_Of_Home":null,
     "Size_Of_Home":"1650",
-    "Water_Consumption":null,
-    "Electricity_Consumption":null
+    "Water_Consumption":"110",
+    "Electricity_Consumption":"15678"
   },
   {
     "id":"22",
@@ -341,7 +341,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"27",
     "Size_Of_Home":"1250",
-    "Water_Consumption":null,
+    "Water_Consumption":"154",
     "Electricity_Consumption":"12456"
   },
   {
@@ -357,7 +357,7 @@
     "Age_Of_Home":"100",
     "Size_Of_Home":"1200",
     "Water_Consumption":"61",
-    "Electricity_Consumption":null
+    "Electricity_Consumption":"13451"
   },
   {
     "id":"25",
@@ -431,7 +431,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"13",
     "Size_Of_Home":"3500",
-    "Water_Consumption":null,
+    "Water_Consumption":"111",
     "Electricity_Consumption":"17092"
   },
   {
@@ -521,7 +521,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"5",
     "Size_Of_Home":"2850",
-    "Water_Consumption":null,
+    "Water_Consumption":"131",
     "Electricity_Consumption":"11675"
   },
   {
@@ -551,7 +551,7 @@
     "Installation_type":"Flush mount",
     "Age_Of_Home":"20",
     "Size_Of_Home":"3000",
-    "Water_Consumption":null,
+    "Water_Consumption":"151",
     "Electricity_Consumption":"12540"
   },
   {
@@ -566,7 +566,7 @@
     "Installation_type":"Tilted up",
     "Age_Of_Home":"23",
     "Size_Of_Home":"2700",
-    "Water_Consumption":null,
+    "Water_Consumption":"171",
     "Electricity_Consumption":"24945"
   },
   {
@@ -596,7 +596,7 @@
     "Installation_type":"Tilted up",
     "Age_Of_Home":"20",
     "Size_Of_Home":"2600",
-    "Water_Consumption":null,
+    "Water_Consumption":"151",
     "Electricity_Consumption":"14458"
   },
   {
@@ -612,7 +612,7 @@
     "Age_Of_Home":"88",
     "Size_Of_Home":"1200",
     "Water_Consumption":"42",
-    "Electricity_Consumption":null
+    "Electricity_Consumption":"15252"
   },
   {
     "id":"42",
@@ -627,7 +627,7 @@
     "Age_Of_Home":"37",
     "Size_Of_Home":null,
     "Water_Consumption":"133",
-    "Electricity_Consumption":null
+    "Electricity_Consumption":"13454"
   },
   {
     "id":"43",
