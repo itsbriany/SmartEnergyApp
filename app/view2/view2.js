@@ -18,6 +18,12 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
         // The limit of the number of rows allowed in the table
         var row_limit = 6;
 
+        // The year we start at
+        var current_year = 2015;
+
+        // The current month
+        var current_month = 'January';
+
 
         /*
          Assures that the table does not go beyond 10 columns
@@ -38,7 +44,7 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
          */
         var updateRow = function(identifier, month, cost, electricity) {
             $('#real_time_energy_consumption' + identifier).html(
-                "<td>" + month + '</td>' +
+                "<td>" + month + ' ' + current_year + '</td>' +
                 '<td>' + cost + '</td>' +
                 '<td>' + electricity + '</td>' +
                 "</tr>"
@@ -64,11 +70,38 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
 
             console.log("Month_counter is: " + month_counter);
 
+            switch(month_counter % 12) {
+                case 0: current_month = 'December';
+                        break;
+                case 1: current_month = 'January';
+                    break;
+                case 2: current_month = 'February';
+                    break;
+                case 3: current_month = 'March';
+                    break;
+                case 4: current_month = 'April';
+                    break;
+                case 5: current_month = 'May';
+                    break;
+                case 6: current_month = 'June';
+                    break;
+                case 7: current_month = 'July';
+                    break;
+                case 8: current_month = 'August';
+                    break;
+                case 9: current_month = 'September';
+                    break;
+                case 10: current_month = 'October';
+                    break;
+                case 11: current_month = 'November';
+                    break;
+            }
+
             var identifier = month_counter % row_limit;
             var electricity_cost = calculate_electricity_cost(electricity);
 
             // Wrap around the table
-            updateRow(identifier, month, electricity_cost, electricity);
+            updateRow(identifier, current_month, electricity_cost, electricity);
 
             // Ensure that the table never grows past 10 rows
             monitor_table(10);
@@ -100,14 +133,14 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
                 }
 
                 $scope.data[0][columns-1] = electricity_cost;
-                $scope.labels[columns-1] = month_counter;
+                $scope.labels[columns-1] = current_month + ' ' + current_year;
                 console.log('Array values after: ' + $scope.data[0]);
 
                 return;
             }
 
             $scope.data[0][identifier] = electricity_cost;
-            $scope.labels[identifier] = month_counter;
+            $scope.labels[identifier] = current_month + ' ' + current_year;
 
         };
 
@@ -167,6 +200,9 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
             // Run the simulator
             setInterval(function() {
                 $scope.updateLineGraph();
+                if (current_month == 'December') {
+                    current_year++;
+                }
             }, 1000);
         }
 
