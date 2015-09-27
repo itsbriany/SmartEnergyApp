@@ -220,7 +220,7 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
                 if (current_month == 'December') {
                     current_year++;
                 }
-            }, 10000);
+            }, 4000);
         }
 
         /*
