@@ -9,10 +9,36 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
   });
 }])
 
-.controller('View2Ctrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+.controller('View2Ctrl', ['$scope', '$http', '$rootScope', '$timeout', function($scope, $http, $rootScope, $timeout) {
+
+
+
 
         // Counts the number of months passed since monitoring the one house
         var month_counter = 0;
+
+        /*
+         Assures that the table does not go beyond 10 columns
+         */
+        var monitor_table = function(row_limit) {
+            //var identifier = -1;
+            //if (month_counter > row_limit) {
+            //    identifier = (month_counter % row_limit) - 1;
+            //}
+            //
+            //console.log('identifier is: ' + identifier);
+
+            $timeout(function() {
+                // Temporary solution until using $q
+                $('[id]').each(function (i) {
+                    var ids = $('[id="' + this.id + '"]');
+                    console.log('ids: ' + ids);
+                    if (ids.length > 1) $('[id="' + this.id + '"]:gt(0)').remove();
+                });
+                console.log('Removing duplicate ids!');
+            }, 10);
+        };
+
 
         /*
             Updates the table based on the real time simulator
@@ -25,24 +51,24 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
 
             console.log("Month_counter is: " + month_counter);
 
-            //if (month_counter == 0) {
-            //    $('#real_time_energy_consumption' + month_counter).html(
-            //        '<td>' + month + '</td>' +
-            //        '<td>' + water + '</td>' +
-            //        '<td>' + electricity + '</td>'
-            //    );
-            //} else {
-                $('#real_time_energy_consumption').append(
-                    "<tr id='real_time_energy_consumption'" + month_counter+ '>' +
-                    "<td>" + month + '</td>' +
-                    '<td>' + water + '</td>' +
-                    '<td>' + electricity + '</td>' +
-                    "</tr>"
-                );
-            //}
+            $('#real_time_energy_consumption').append(
+                "<tr id='real_time_energy_consumption" + month_counter+ "'>" +
+                "<td>" + month + '</td>' +
+                '<td>' + water + '</td>' +
+                '<td>' + electricity + '</td>' +
+                "</tr>"
+            );
+
+            // Ensure that the table never grows past 10 rows
+            monitor_table(10);
+
             month_counter++;
         };
 
+
+        /*
+            Updates the line graph
+         */
         var updateLineGraph = function() {
             try {
                 // pass this in a query and send to server
@@ -58,9 +84,6 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
             }
         };
 
-        $http.get("/SmartEnergyData").success(function(response) {
-            $scope.dataset = response;
-        });
 
         $scope.updateChart = function(index) {
             $scope.labels = [index, "February", "March", "April", "May", "June", "July"];
@@ -81,23 +104,20 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
         };
 
 
-
-
-
         /*
             Simulates real time data flow updating every 3 seconds
          */
         function simulate() {
-            updateLineGraph();
-            updateLineGraph();
-            updateLineGraph();
-            //setInterval(function() {
-            //
-            //}, 3000);
+            //updateLineGraph();
+
+            setInterval(function() {
+                updateLineGraph();
+            }, 3000);
         };
 
 
         simulate();
 
+        //var deferred = $q.defer();
 
 }]);

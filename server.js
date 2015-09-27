@@ -73,7 +73,7 @@ app.put('/MonitorHouse/:id', function(req, res) {
         if(results.Water_Consumption == null || results.Electricity_Consumption == null)
             De_normalize_data(results, id);
         else
-        normalize_data(results, id);
+            normalize_data(results, id);
         res.send(results);
     })
 });
