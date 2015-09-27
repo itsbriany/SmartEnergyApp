@@ -4,14 +4,14 @@
             <thead>
                 <tr>
                     <th class="text-center">Months Passed</th>
-                    <th class="text-center">Water Consumption (Liters)</th>
+                    <th class="text-center">Electricity Cost ($)</th>
                     <th class="text-center">Electricity Consumption (Kw)</th>
                 </tr>
             </thead>
 
             <tbody id="real_time_energy_consumption">
                 <!--<tr id="real_time_energy_consumption0">-->
-                <!--<tr ng-repeat="data in dataset" ng-click="updateChart($index)">-->
+                <!--<tr ng-repeat="data in dataset" ng-click="loadChart($index)">-->
                     <!--&lt;!&ndash;<td>{{$index + 1}}</td>&ndash;&gt;-->
                     <!--&lt;!&ndash;<td>{{data.Water_Consumption}}</td>&ndash;&gt;-->
                     <!--&lt;!&ndash;<td>{{data.Electricity_Consumption}}</td>&ndash;&gt;-->
@@ -24,7 +24,8 @@
 
         <canvas id="line" class="chart chart-line" chart-data="data"
                 chart-labels="labels" chart-legend="true" chart-series="series"
-                chart-click="onClick" chart-load="onLoad" >
+                chart-click="onClick">
         </canvas>
+
     </div>
 </div>

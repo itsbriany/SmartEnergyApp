@@ -18,28 +18,40 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
         // The limit of the number of rows allowed in the table
         var row_limit = 6;
 
+
         /*
          Assures that the table does not go beyond 10 columns
          */
         var monitor_table = function() {
-            //var identifier = -1;
-            //if (month_counter > row_limit) {
-            //    identifier = (month_counter % row_limit) - 1;
-            //}
-            //
-            //console.log('identifier is: ' + identifier);
-
             $timeout(function() {
                 // Temporary solution until using $q
                 $('[id]').each(function (i) {
                     var ids = $('[id="' + this.id + '"]');
-                    console.log('ids: ' + ids);
                     if (ids.length > 1) $('[id="' + this.id + '"]:gt(0)').remove();
                 });
-                console.log('Removing duplicate ids!');
             }, 10);
         };
 
+
+        /*
+         Helper function that updates the indexed row on the table
+         */
+        var updateRow = function(identifier, month, cost, electricity) {
+            $('#real_time_energy_consumption' + identifier).html(
+                "<td>" + month + '</td>' +
+                '<td>' + cost + '</td>' +
+                '<td>' + electricity + '</td>' +
+                "</tr>"
+            );
+        };
+
+
+        /*
+            Returns the total cost of electricity for one house
+         */
+        var calculate_electricity_cost = function(electricity) {
+            return electricity * 0.17;
+        };
 
         /*
             Updates the table based on the real time simulator
@@ -48,72 +60,110 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
                    water: the current amount of water consumption
                    electricity: the current amount of electricity consumption
          */
-        var updateTable = function(month, water, electricity) {
+        var updateTable = function (month, electricity) {
 
             console.log("Month_counter is: " + month_counter);
 
-            $('#real_time_energy_consumption').append(
-                "<tr id='real_time_energy_consumption" + month_counter+ "'>" +
-                "<td>" + month + '</td>' +
-                '<td>' + water + '</td>' +
-                '<td>' + electricity + '</td>' +
-                "</tr>"
-            );
+            var identifier = month_counter % row_limit;
+            var electricity_cost = calculate_electricity_cost(electricity);
+
+            if (month_counter < row_limit) {
+                $('#real_time_energy_consumption').append(
+                    "<tr id='real_time_energy_consumption" + month_counter + "'>" +
+                    "<td>" + month + '</td>' +
+                    '<td>' + electricity_cost + '</td>' +
+                    '<td>' + electricity + '</td>' +
+                    "</tr>"
+                );
+            } else {
+
+                // Wrap around the table
+                updateRow(identifier, month, electricity_cost, electricity);
+            }
+
 
             // Ensure that the table never grows past 10 rows
             monitor_table(10);
+
+            // Update the points on the table
+            updatePoints(identifier, electricity_cost);
 
             month_counter++;
         };
 
 
         /*
+            Updates the points on the graph
+         */
+        var updatePoints = function (identifier, electricity_cost) {
+
+            var columns = 6;
+
+            if (month_counter > columns) {
+
+                console.log('Array values before: ' + $scope.data[0]);
+
+                // Shift left
+                for (var i = 0; i < columns; i++) {
+                    var temp_data = $scope.data[0][i+1];
+                    var temp_label = $scope.labels[i+1];
+                    $scope.data[0][i] = temp_data;
+                    $scope.labels[i] = temp_label;
+                }
+
+                $scope.data[0][columns-1] = electricity_cost;
+                $scope.labels[columns-1] = month_counter;
+                console.log('Array values after: ' + $scope.data[0]);
+
+                return;
+            }
+
+            $scope.data[0][identifier] = electricity_cost;
+            $scope.labels[identifier] = month_counter;
+
+        };
+
+        /*
             Updates the line graph
          */
-        var updateLineGraph = function() {
+         $scope.updateLineGraph = function() {
             try {
                 // pass this in a query and send to server
                 console.log($rootScope.g_home_address);
                 var home_to_monitor = $rootScope.g_home_address._id;
                 $http.put("/MonitorHouse/" + home_to_monitor).success(function(response) {
-                    console.log("Updating chart!");
-                    $scope.updateChart(month_counter);
-                    updateTable(month_counter, response.Water_Consumption, response.Electricity_Consumption);
+                    updateTable(month_counter, response.Electricity_Consumption);
                 });
             } catch(err) {
                 console.log("No house selected");
             }
         };
 
+        $scope.loadChart = function () {
 
-        $scope.updateChart = function(index) {
-            console.log('labels: ' + $scope.labels);
+            // Load the labels
+            $scope.labels = [];
+            for (var i = 0; i < row_limit; i++) {
+                $scope.labels[i] = month_counter + i;
+            }
 
-            $scope.labels = [month_counter,
-                             month_counter + 1,
-                             month_counter + 2,
-                             month_counter + 3,
-                             month_counter + 4,
-                             month_counter + 5,
-                             month_counter + 6
-                            ];
-            $scope.series = ['Water Consumption', 'Electricity Consumption'];
-            $scope.data = [
-                [65, 59, 80, 81, 56, 55, 40],
-                [28, 48, 40, 19, 86, 27, 90]
-            ];
+            // Initialize the series
+            $scope.series = ['Cost of Electricity'];
+
+            // Initialize the data
+            $scope.data = [[]];
+            var rows = 1;
+            var columns = 6;
+
+            for (var i = 0; i < rows; i ++) {
+                for (var j = 0; j < columns; j++) {
+                    $scope.data[i][j] = 0;
+                }
+            }
 
             $scope.onClick = function (points, evt) {
-                console.log(points, evt);
-                $scope.data = [
-                    [66, 66, 66, 66, 66, 66, 40], // TODO This needs to be simulated!!
-                    [11, 48, 11, 19, 11, 27, 90]
-                ];
-            };
 
-            $scope.onLoad = function() {
-                console.log('Armed and ready!');
-            }
+            };
 
         };
 
@@ -122,16 +172,13 @@ angular.module('myApp.view2', ['ngRoute', 'chart.js'])
             Simulates real time data flow updating every 3 seconds
          */
         function simulate() {
-            //updateLineGraph();
-
             setInterval(function() {
-                updateLineGraph();
-            }, 3000);
+                $scope.updateLineGraph();
+            }, 1000);
         };
 
 
         simulate();
 
-        //var deferred = $q.defer();
-
+        $scope.loadChart();
 }]);

@@ -114,7 +114,5 @@ function De_normalize_data(old_data, id) {
 }
 
 
-
-
 app.listen(port);
 console.log('Listening on port ' + port);
